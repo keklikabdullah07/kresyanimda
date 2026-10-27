@@ -17,23 +17,44 @@ import type {
   ClassroomTeacherAssignmentInput,
   ClassroomUpdate,
 } from '@kidscare/shared-schemas';
+import { PrismaService } from '../../../prisma/prisma.service';
 import {
   ClassroomsRepository,
   type IClassroomsRepository,
 } from '../repositories/classrooms.repository';
 
-type ClassroomUser = { userId: string; role: 'SUPER_ADMIN' | 'ADMIN' | 'TEACHER' };
+type ClassroomUser = {
+  userId: string;
+  role: 'SUPER_ADMIN' | 'ADMIN' | 'TEACHER' | 'PARENT' | 'SERVICE_STAFF';
+};
 
 @Injectable()
 export class ClassroomsService {
   constructor(
     @Inject(ClassroomsRepository)
     private readonly classroomsRepository: IClassroomsRepository,
+    @Inject(PrismaService)
+    private readonly prisma: PrismaService,
   ) {}
 
   async list(tenantId: string, user: ClassroomUser): Promise<Classroom[]> {
-    const teacherId = user.role === 'TEACHER' ? user.userId : undefined;
-    const rows = await this.classroomsRepository.findMany(tenantId, teacherId);
+    if (user.role === 'TEACHER') {
+      const rows = await this.classroomsRepository.findMany(tenantId, user.userId);
+      return rows.map((row) => this.toResponse(row));
+    }
+    if (user.role === 'PARENT') {
+      const children = await this.prisma.student.findMany({
+        where: { tenantId, parentId: user.userId, isActive: true },
+        select: { classroomId: true },
+      });
+      const classroomIds = Array.from(
+        new Set(children.map((c) => c.classroomId).filter((id): id is string => Boolean(id))),
+      );
+      if (classroomIds.length === 0) return [];
+      const rows = await this.classroomsRepository.findMany(tenantId, undefined, classroomIds);
+      return rows.map((row) => this.toResponse(row));
+    }
+    const rows = await this.classroomsRepository.findMany(tenantId);
     return rows.map((row) => this.toResponse(row));
   }
 

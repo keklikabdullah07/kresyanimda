@@ -2,6 +2,7 @@ import { BadRequestException, ConflictException, Inject, Injectable } from '@nes
 import { randomBytes } from 'crypto';
 import type { UserInvite } from '@kidscare/shared-schemas';
 import type { UserRole } from '@kidscare/shared-types';
+import type { CurrentUserPayload } from '../../../common/decorators/current-user.decorator';
 import { PasswordService } from '../../auth/services/password.service';
 import type { IUsersRepository } from '../repositories/users.repository';
 import type { UserResponseDto } from '../dto/user-response.dto';
@@ -23,8 +24,17 @@ export class UsersService {
     @Inject(PasswordService) private readonly password: PasswordService,
   ) {}
 
-  async list(tenantId: string, role?: UserRole): Promise<UserResponseDto[]> {
+  async list(
+    tenantId: string,
+    role?: UserRole,
+    currentUser?: CurrentUserPayload,
+  ): Promise<UserResponseDto[]> {
     const rows = await this.repo.findMany(tenantId, role);
+    // Güvenlik & KVKK: Veli rolü diğer velileri rehberde göremez; sadece yönetim ve öğretmenleri görebilir.
+    if (currentUser?.role === 'PARENT') {
+      const allowedRoles = new Set(['ADMIN', 'SUPER_ADMIN', 'TEACHER']);
+      return rows.filter((row) => allowedRoles.has(row.role)).map((row) => this.toResponse(row));
+    }
     return rows.map((row) => this.toResponse(row));
   }
 

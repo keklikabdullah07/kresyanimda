@@ -165,9 +165,23 @@ export class MessagingService {
 
   async createParentRequest(
     tenantId: string,
-    parentId: string,
+    userId: string,
     input: ParentRequestCreate,
+    userRole?: string,
   ): Promise<ParentRequest> {
+    let parentId = userId;
+    if (userRole && userRole !== 'PARENT') {
+      if (input.studentId) {
+        const student = await this.prisma.student.findFirst({
+          where: { tenantId, id: input.studentId },
+          select: { parentId: true },
+        });
+        if (student?.parentId) {
+          parentId = student.parentId;
+        }
+      }
+    }
+
     const row = await this.repo.createParentRequest(tenantId, {
       parentId,
       studentId: input.studentId ?? null,

@@ -119,14 +119,14 @@ export class MessagingController {
   }
 
   @Post('parent-requests')
-  @Roles('PARENT')
+  @Roles('PARENT', 'SUPER_ADMIN', 'ADMIN', 'TEACHER')
   @HttpCode(201)
   async createParentRequest(
     @CurrentTenantId() tenantId: string,
     @CurrentUser() user: CurrentUserPayload,
     @Body(new ZodValidationPipe(parentRequestCreateSchema)) body: ParentRequestCreate,
   ): Promise<ParentRequest> {
-    return this.service.createParentRequest(tenantId, user.userId, body);
+    return this.service.createParentRequest(tenantId, user.userId, body, user.role);
   }
 
   @Patch('parent-requests/:id/resolve')

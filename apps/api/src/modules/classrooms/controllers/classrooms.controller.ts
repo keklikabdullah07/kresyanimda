@@ -35,14 +35,22 @@ export class ClassroomsController {
   constructor(@Inject(ClassroomsService) private readonly classroomsService: ClassroomsService) {}
 
   @Get()
-  @Roles('SUPER_ADMIN', 'ADMIN', 'TEACHER')
+  @Roles('SUPER_ADMIN', 'ADMIN', 'TEACHER', 'PARENT')
   async list(
     @CurrentTenantId() tenantId: string,
     @CurrentUser() user: CurrentUserPayload,
   ): Promise<Classroom[]> {
+    const role =
+      user.role === 'TEACHER'
+        ? 'TEACHER'
+        : user.role === 'PARENT'
+          ? 'PARENT'
+          : user.role === 'ADMIN'
+            ? 'ADMIN'
+            : 'SUPER_ADMIN';
     return this.classroomsService.list(tenantId, {
       userId: user.userId,
-      role: user.role === 'TEACHER' ? 'TEACHER' : user.role === 'ADMIN' ? 'ADMIN' : 'SUPER_ADMIN',
+      role,
     });
   }
 
@@ -54,10 +62,15 @@ export class ClassroomsController {
     @Query('date') dateQuery: string | undefined,
     @CurrentUser() user: CurrentUserPayload,
   ): Promise<ClassroomDailyFlow> {
-    return this.classroomsService.getDailyFlow(tenantId, classroomId, dateQuery ?? new Date().toISOString().slice(0, 10), {
-      userId: user.userId,
-      role: user.role === 'TEACHER' ? 'TEACHER' : user.role === 'ADMIN' ? 'ADMIN' : 'SUPER_ADMIN',
-    });
+    return this.classroomsService.getDailyFlow(
+      tenantId,
+      classroomId,
+      dateQuery ?? new Date().toISOString().slice(0, 10),
+      {
+        userId: user.userId,
+        role: user.role === 'TEACHER' ? 'TEACHER' : user.role === 'ADMIN' ? 'ADMIN' : 'SUPER_ADMIN',
+      },
+    );
   }
 
   @Post()

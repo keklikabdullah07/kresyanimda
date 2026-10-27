@@ -22,18 +22,19 @@ type ClassroomDailyFlowRow = Prisma.ClassroomGetPayload<{
 }>;
 
 export interface IClassroomsRepository {
-  findMany(tenantId: string, teacherId?: string): Promise<ClassroomWithDetails[]>;
+  findMany(
+    tenantId: string,
+    teacherId?: string,
+    classroomIds?: string[],
+  ): Promise<ClassroomWithDetails[]>;
+
   findDailyFlow(
     tenantId: string,
     classroomId: string,
     date: Date,
     teacherId?: string,
   ): Promise<ClassroomDailyFlowRow | null>;
-  findById(
-    tenantId: string,
-    id: string,
-    teacherId?: string,
-  ): Promise<ClassroomWithDetails | null>;
+  findById(tenantId: string, id: string, teacherId?: string): Promise<ClassroomWithDetails | null>;
   create(
     tenantId: string,
     data: Omit<Prisma.ClassroomUncheckedCreateInput, 'tenantId'>,
@@ -63,15 +64,18 @@ export class ClassroomsRepository implements IClassroomsRepository {
     students: { where: { isActive: true }, select: { id: true } },
   } satisfies Prisma.ClassroomInclude;
 
-  async findMany(tenantId: string, teacherId?: string): Promise<ClassroomWithDetails[]> {
+  async findMany(
+    tenantId: string,
+    teacherId?: string,
+    classroomIds?: string[],
+  ): Promise<ClassroomWithDetails[]> {
     return this.prisma.withTenant((client) =>
       client.classroom.findMany({
         where: {
           tenantId,
           isActive: true,
-          ...(teacherId
-            ? { teacherAssignments: { some: { teacherId, removedAt: null } } }
-            : {}),
+          ...(teacherId ? { teacherAssignments: { some: { teacherId, removedAt: null } } } : {}),
+          ...(classroomIds && classroomIds.length > 0 ? { id: { in: classroomIds } } : {}),
         },
         include: this.details,
         orderBy: { name: 'asc' },
@@ -91,9 +95,7 @@ export class ClassroomsRepository implements IClassroomsRepository {
           tenantId,
           id: classroomId,
           isActive: true,
-          ...(teacherId
-            ? { teacherAssignments: { some: { teacherId, removedAt: null } } }
-            : {}),
+          ...(teacherId ? { teacherAssignments: { some: { teacherId, removedAt: null } } } : {}),
         },
         include: {
           students: {
@@ -119,9 +121,7 @@ export class ClassroomsRepository implements IClassroomsRepository {
         where: {
           tenantId,
           id,
-          ...(teacherId
-            ? { teacherAssignments: { some: { teacherId, removedAt: null } } }
-            : {}),
+          ...(teacherId ? { teacherAssignments: { some: { teacherId, removedAt: null } } } : {}),
         },
         include: this.details,
       }),
@@ -154,7 +154,10 @@ export class ClassroomsRepository implements IClassroomsRepository {
 
   async findTeacher(tenantId: string, teacherId: string): Promise<{ id: string } | null> {
     return this.prisma.withTenant((client) =>
-      client.user.findFirst({ where: { tenantId, id: teacherId, role: 'TEACHER', isActive: true }, select: { id: true } }),
+      client.user.findFirst({
+        where: { tenantId, id: teacherId, role: 'TEACHER', isActive: true },
+        select: { id: true },
+      }),
     );
   }
 
