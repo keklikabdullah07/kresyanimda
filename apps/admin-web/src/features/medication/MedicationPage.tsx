@@ -32,6 +32,7 @@ import {
 import { listStudents } from '../../api/students';
 import { listClassrooms } from '../../api/classrooms';
 import { listUsers } from '../../api/users';
+import { getParentChildrenOverview } from '../../api/parent';
 import { useToast } from '../../components/Toast';
 import { useAuth } from '../auth/AuthContext';
 import { PromptModal } from '../../components/ui/PromptModal';
@@ -96,32 +97,66 @@ export function MedicationPage(): JSX.Element {
   const isParent = role === 'PARENT';
   const currentUserId = state.status === 'authenticated' ? state.user.id : null;
 
+  // Veli Çocukları Desteği (PARENT rolü için garantili kütük)
+  const [parentChildren, setParentChildren] = useState<Student[]>([]);
+
+  useEffect(() => {
+    if (isParent) {
+      getParentChildrenOverview()
+        .then((items) => {
+          setParentChildren(items.map((i) => i.student));
+        })
+        .catch(() => {});
+    }
+  }, [isParent]);
+
   // Öğretmenin sorumlu olduğu sınıfların kümesi (TEACHER için)
-  const teacherClassroomIds = useMemo(() => {
-    if (!isTeacher || !currentUserId) return new Set<string>();
+  const teacherClassrooms = useMemo(() => {
+    if (!isTeacher || !currentUserId) return [];
     const assigned = classrooms.filter((cls) =>
       cls.teachers?.some((t) => t.teacherId === currentUserId),
     );
-    return new Set(assigned.map((c) => c.id));
-  }, [isTeacher, currentUserId, classrooms]);
+    if (assigned.length > 0) return assigned;
+    // listClassrooms backend'de zaten öğretmene atanmış sınıfları filtreler
+    if (classrooms.length > 0) return classrooms;
+    const studentClassIds = new Set(students.map((s) => s.classroomId).filter(Boolean));
+    const matched = classrooms.filter((c) => studentClassIds.has(c.id));
+    if (matched.length > 0) return matched;
+    return [];
+  }, [isTeacher, currentUserId, classrooms, students]);
 
+  const teacherClassroomIds = useMemo(
+    () => new Set(teacherClassrooms.map((c) => c.id)),
+    [teacherClassrooms],
+  );
+
+  // Rol Bazlı Öğrenci İzolasyonu (Role Scoping)
   const scopedStudents = useMemo(() => {
     if (isParent) {
-      if (!currentUserId) return [];
-      return students.filter((s) => {
-        if (s.parentId === currentUserId) return true;
-        const pass = s.passport as Record<string, unknown> | null | undefined;
-        return pass?.['secondaryParentId'] === currentUserId;
-      });
+      if (parentChildren.length > 0) return parentChildren;
+      if (currentUserId) {
+        const matching = students.filter((s) => {
+          if (s.parentId === currentUserId) return true;
+          const pass = s.passport as Record<string, unknown> | null | undefined;
+          return pass?.['secondaryParentId'] === currentUserId;
+        });
+        if (matching.length > 0) return matching;
+      }
+      // Backend /students endpoint'i PARENT rolünde yalnızca velinin çocuklarını döner
+      return students;
     }
     if (isTeacher) {
-      if (teacherClassroomIds.size === 0) return [];
-      return students.filter(
-        (s) => s.classroomId != null && teacherClassroomIds.has(s.classroomId),
-      );
+      if (teacherClassroomIds.size > 0) {
+        const filtered = students.filter(
+          (s) => s.classroomId != null && teacherClassroomIds.has(s.classroomId),
+        );
+        if (filtered.length > 0) return filtered;
+      }
+      // Backend /students endpoint'i TEACHER rolünde yalnızca öğretmenin öğrencilerini döner
+      return students;
     }
     return students;
-  }, [isParent, isTeacher, students, currentUserId, teacherClassroomIds]);
+  }, [isParent, isTeacher, parentChildren, currentUserId, teacherClassroomIds, students]);
 
   const scopedStudentIds = useMemo(
     () => new Set(scopedStudents.map((s) => s.id)),
@@ -163,6 +198,12 @@ export function MedicationPage(): JSX.Element {
   const [formScheduledAt, setFormScheduledAt] = useState('');
   const [formParentNote, setFormParentNote] = useState('');
   const [createSubmitting, setCreateSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (createOpen && scopedStudents.length > 0 && !formStudentId) {
+      setFormStudentId(scopedStudents[0]?.id || '');
+    }
+  }, [createOpen, scopedStudents, formStudentId]);
 
   function setQuickTime(hours: number, minutes: number = 0) {
     const d = new Date();
@@ -497,12 +538,20 @@ export function MedicationPage(): JSX.Element {
               <span>Yenile</span>
             </TactileButton>
 
-            {(role === 'PARENT' || role === 'ADMIN' || role === 'SUPER_ADMIN') && (
+            {(role === 'PARENT' ||
+              role === 'TEACHER' ||
+              role === 'ADMIN' ||
+              role === 'SUPER_ADMIN') && (
               <TactileButton
                 type="button"
                 variant="teal"
                 size="sm"
-                onClick={() => setCreateOpen(true)}
+                onClick={() => {
+                  if (scopedStudents.length > 0 && !formStudentId) {
+                    setFormStudentId(scopedStudents[0]?.id || '');
+                  }
+                  setCreateOpen(true);
+                }}
                 className="whitespace-nowrap"
               >
                 <Plus className="w-4 h-4" />
@@ -573,12 +622,21 @@ export function MedicationPage(): JSX.Element {
               : 'Henüz aktif veya geçmiş bir ilaç kullanım talebi bulunmuyor.'
           }
           action={
-            (role === 'PARENT' || role === 'ADMIN' || role === 'SUPER_ADMIN') && !createOpen ? (
+            (role === 'PARENT' ||
+              role === 'TEACHER' ||
+              role === 'ADMIN' ||
+              role === 'SUPER_ADMIN') &&
+            !createOpen ? (
               <TactileButton
                 type="button"
                 variant="teal"
                 size="sm"
-                onClick={() => setCreateOpen(true)}
+                onClick={() => {
+                  if (scopedStudents.length > 0 && !formStudentId) {
+                    setFormStudentId(scopedStudents[0]?.id || '');
+                  }
+                  setCreateOpen(true);
+                }}
               >
                 <Plus className="w-4 h-4" />
                 <span>Yeni İlaç Talebi Oluştur</span>

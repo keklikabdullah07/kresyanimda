@@ -58,7 +58,7 @@ export class MedicationController {
   }
 
   @Post('records')
-  @Roles('SUPER_ADMIN', 'ADMIN', 'PARENT')
+  @Roles('SUPER_ADMIN', 'ADMIN', 'TEACHER', 'PARENT')
   @HttpCode(201)
   async create(
     @CurrentTenantId() tenantId: string,
@@ -69,7 +69,7 @@ export class MedicationController {
   }
 
   @Patch('records/:id/approve')
-  @Roles('SUPER_ADMIN', 'ADMIN')
+  @Roles('SUPER_ADMIN', 'ADMIN', 'TEACHER')
   async approve(
     @CurrentTenantId() tenantId: string,
     @CurrentUser() user: CurrentUserPayload,
@@ -80,7 +80,7 @@ export class MedicationController {
   }
 
   @Patch('records/:id/reject')
-  @Roles('SUPER_ADMIN', 'ADMIN')
+  @Roles('SUPER_ADMIN', 'ADMIN', 'TEACHER')
   async reject(
     @CurrentTenantId() tenantId: string,
     @CurrentUser() user: CurrentUserPayload,
