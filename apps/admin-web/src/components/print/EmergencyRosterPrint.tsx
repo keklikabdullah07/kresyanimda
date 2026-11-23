@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+﻿import type { ReactElement } from 'react';
 import type { Student, StudentPassport } from '@kidscare/shared-types';
 import { AlertTriangle, Phone, ShieldAlert } from 'lucide-react';
 
@@ -17,7 +17,7 @@ export function EmergencyRosterPrint({
   classroomName,
   students,
   passportsMap = {},
-  tenantName = 'KidsCare Anaokulu & Gündüz Bakımevi',
+  tenantName = 'Kreş Yanımda Anaokulu & Gündüz Bakımevi',
   teacherNames = ['Sınıf Öğretmeni'],
   emergencyPhone = '0 (212) 555 01 23',
   tripDestination,
@@ -193,7 +193,7 @@ export function EmergencyRosterPrint({
           </p>
         </div>
         <div className="text-right shrink-0">
-          <p className="font-bold text-stone-800">KidsCare Güvenlik & Sağlık Modülü</p>
+          <p className="font-bold text-stone-800">Kreş Yanımda Güvenlik & Sağlık Modülü</p>
           <p>Toplam {students.length} Öğrenci Kayıtlı</p>
         </div>
       </div>

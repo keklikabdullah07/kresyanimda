@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+﻿import type { ReactElement } from 'react';
 import type { Attendance, Student } from '@kidscare/shared-types';
 
 export interface AttendanceSheetPrintProps {
@@ -33,7 +33,7 @@ export function AttendanceSheetPrint({
   month,
   students,
   attendances = [],
-  tenantName = 'KidsCare Anaokulu & Gündüz Bakımevi',
+  tenantName = 'Kreş Yanımda Anaokulu & Gündüz Bakımevi',
   teacherName = 'Sınıf Öğretmeni',
   directorName = 'Okul Müdürü',
 }: AttendanceSheetPrintProps): ReactElement {

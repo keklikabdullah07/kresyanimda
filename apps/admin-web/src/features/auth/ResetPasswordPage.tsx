@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
+﻿import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Lock,
@@ -312,7 +312,7 @@ export function ResetPasswordPage(): ReactNode {
 
       {/* Footer */}
       <div className="w-full py-2 text-center text-[10px] text-slate-400 dark:text-slate-500 font-medium">
-        © {new Date().getFullYear()} KidsCare Okul Öncesi Portalı. Tüm hakları saklıdır.
+        © {new Date().getFullYear()} Kreş Yanımda Okul Öncesi Portalı. Tüm hakları saklıdır.
       </div>
     </div>
   );

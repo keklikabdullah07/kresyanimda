@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+﻿import type { ReactElement } from 'react';
 import type { EventConsent, EventConsentResponseItem } from '@kidscare/shared-types';
 import { Bus, CheckCircle2, XCircle, MapPin, Calendar, Users } from 'lucide-react';
 
@@ -12,7 +12,7 @@ export interface EventRosterPrintProps {
 export function EventRosterPrint({
   consent,
   responses,
-  tenantName = 'KidsCare Anaokulu & Gündüz Bakımevi',
+  tenantName = 'Kreş Yanımda Anaokulu & Gündüz Bakımevi',
   printDate = new Date().toLocaleDateString('tr-TR', {
     day: '2-digit',
     month: 'long',

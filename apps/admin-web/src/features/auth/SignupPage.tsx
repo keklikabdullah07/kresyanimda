@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type JSX } from 'react';
+﻿import { useState, type FormEvent, type JSX } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   School,
@@ -152,7 +152,7 @@ export function SignupPage(): JSX.Element {
             </div>
 
             <p className="text-base text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-              Kreşinizi KidsCare bulut platformuna taşıyın. Öğrenci, veli ve öğretmen yönetimini tek
+              Kreşinizi Kreş Yanımda bulut platformuna taşıyın. Öğrenci, veli ve öğretmen yönetimini tek
               bir modern merkezden yürütün.
             </p>
           </div>
@@ -220,7 +220,7 @@ export function SignupPage(): JSX.Element {
                 Yeni Kreş Hesabı
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 text-center lg:text-left">
-                Kurumunuzu KidsCare ailesine dahil edin
+                Kurumunuzu Kreş Yanımda ailesine dahil edin
               </p>
             </div>
 
@@ -399,7 +399,7 @@ export function SignupPage(): JSX.Element {
 
       {/* Bottom spacer for centering */}
       <div className="w-full py-2 text-center text-[10px] text-slate-400 dark:text-slate-500">
-        © {new Date().getFullYear()} KidsCare Okul Öncesi Portalı. Tüm hakları saklıdır.
+        © {new Date().getFullYear()} Kreş Yanımda Okul Öncesi Portalı. Tüm hakları saklıdır.
       </div>
     </div>
   );

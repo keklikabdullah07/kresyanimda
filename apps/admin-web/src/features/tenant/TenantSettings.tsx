@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX, type FormEvent } from 'react';
+﻿import { useEffect, useState, type JSX, type FormEvent } from 'react';
 import {
   School,
   Building2,
@@ -212,7 +212,7 @@ export function TenantSettings(): JSX.Element {
                   minLength={2}
                   maxLength={128}
                   required
-                  placeholder="Örn: KidsCare Demo Kreş"
+                  placeholder="Örn: Kreş Yanımda Demo Kreş"
                   className="w-full rounded-2xl border border-[#DDD4C4] dark:border-slate-700 bg-[#FCFAF7] dark:bg-slate-900 px-4 py-2.5 text-sm font-medium text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-teal-700 dark:focus:border-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 transition-all disabled:bg-slate-100 dark:disabled:bg-slate-800 disabled:opacity-75 shadow-2xs"
                 />
               </div>

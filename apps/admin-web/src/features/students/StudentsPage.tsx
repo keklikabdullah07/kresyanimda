@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, type FormEvent, type JSX } from 'react';
+﻿import { useEffect, useState, useMemo, type FormEvent, type JSX } from 'react';
 import type { Student, StudentPassport } from '@kidscare/shared-types';
 import {
   Users,
@@ -1669,7 +1669,7 @@ function StudentFormModal({
             </label>
           </div>
           <p className="text-[11px] text-slate-500 dark:text-slate-300">
-            Her iki veli de KidsCare mobil uygulamasından öğrenci bilgilerini, karne ve
+            Her iki veli de Kreş Yanımda mobil uygulamasından öğrenci bilgilerini, karne ve
             yoklamalarını anlık görebilir.
           </p>
 

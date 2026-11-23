@@ -1,4 +1,4 @@
-import { type JSX, useEffect, useRef } from 'react';
+﻿import { type JSX, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Bell,
@@ -265,7 +265,7 @@ export function NotificationPopover({
       {/* Footer */}
       <div className="px-3.5 py-2 bg-[#F6F3EC] dark:bg-[#0E1524] border-t border-[#DDD4C4] dark:border-slate-800 text-center">
         <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
-          KidsCare Anlık Bildirim Sistemi
+          Kreş Yanımda Anlık Bildirim Sistemi
         </span>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { PrismaClient } from '../src/generated/client';
+﻿import { PrismaClient } from '../src/generated/client';
 import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -14,8 +14,8 @@ async function main() {
       // 2. Tenant'ı bul ya da oluştur
       const tenant = await tx.tenant.upsert({
         where: { id: DEMO_TENANT_ID },
-        update: { name: 'Demo KidsCare Anaokulu & Kreş' },
-        create: { id: DEMO_TENANT_ID, slug: 'demo', name: 'Demo KidsCare Anaokulu & Kreş' },
+        update: { name: 'Demo Kreş Yanımda Anaokulu & Kreş' },
+        create: { id: DEMO_TENANT_ID, slug: 'demo', name: 'Demo Kreş Yanımda Anaokulu & Kreş' },
       });
 
       console.log('🧹 Eski test verileri cascade sırasıyla temizleniyor...');
@@ -2331,3 +2331,4 @@ main()
     process.exit(1);
   })
   .finally(() => prisma.$disconnect());
+

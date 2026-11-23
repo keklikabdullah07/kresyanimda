@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, type JSX } from 'react';
+﻿import { useState, useEffect, useMemo, type JSX } from 'react';
 import {
   Megaphone,
   Send,
@@ -1014,7 +1014,7 @@ export function BroadcastPage(): JSX.Element {
 
             <p className="text-xs text-slate-600 dark:text-slate-400">
               Bu bildirim ilgili alıcıların mobil cihazlarına anında push bildirim olarak
-              gönderilecek ve KidsCare sistemine kaydedilecektir. Onaylıyor musunuz?
+              gönderilecek ve Kreş Yanımda sistemine kaydedilecektir. Onaylıyor musunuz?
             </p>
 
             <div className="mt-6 flex items-center justify-end gap-3">

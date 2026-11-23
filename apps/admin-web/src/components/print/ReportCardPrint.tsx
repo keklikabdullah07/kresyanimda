@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+﻿import type { ReactElement } from 'react';
 import type {
   DevelopmentDomain,
   DevelopmentObservationDto,
@@ -111,7 +111,7 @@ const DEFAULT_SCORE_META = {
 
 export function ReportCardPrint({
   student,
-  tenantName = 'KidsCare Anaokulu & Gündüz Bakımevi',
+  tenantName = 'Kreş Yanımda Anaokulu & Gündüz Bakımevi',
   tenantLogo,
   period = '2026-2027 Eğitim Öğretim Yılı 1. Dönem',
   classroomName,
@@ -326,7 +326,7 @@ export function ReportCardPrint({
 
       {/* Tiny Footer */}
       <div className="mt-2 text-center text-[9px] text-stone-400">
-        KidsCare Çocuk Gelişimi & Kreş Yönetim Bilgi Sistemi tarafından resmi standartlarda
+        Kreş Yanımda Çocuk Gelişimi & Kreş Yönetim Bilgi Sistemi tarafından resmi standartlarda
         üretilmiştir.
       </div>
     </div>

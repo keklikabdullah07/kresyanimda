@@ -1,4 +1,4 @@
-import { useState, useEffect, type JSX } from 'react';
+﻿import { useState, useEffect, type JSX } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import {
   Users,
@@ -424,12 +424,12 @@ export function Layout(): JSX.Element {
               <NavLink
                 to="/"
                 className="flex items-center group focus:outline-hidden min-w-0"
-                title="KidsCare Ana Sayfa"
+                title="Kreş Yanımda Ana Sayfa"
               >
                 <KidsCareLogo size="md" showText={true} inverted={true} />
               </NavLink>
             ) : (
-              <NavLink to="/" className="focus:outline-hidden" title="KidsCare Ana Sayfa">
+              <NavLink to="/" className="focus:outline-hidden" title="Kreş Yanımda Ana Sayfa">
                 <KidsCareLogo size="sm" variant="icon" inverted={true} />
               </NavLink>
             )}

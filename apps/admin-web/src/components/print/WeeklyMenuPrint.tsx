@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+﻿import type { ReactElement } from 'react';
 import type { DailyMenuResponse } from '../../api/daily-menus';
 
 export interface WeeklyMenuPrintProps {
@@ -18,7 +18,7 @@ export interface WeeklyMenuPrintProps {
 }
 
 export function WeeklyMenuPrint({
-  tenantName = 'KidsCare Anaokulu & Gündüz Bakımevi',
+  tenantName = 'Kreş Yanımda Anaokulu & Gündüz Bakımevi',
   startDate,
   endDate,
   weekDays,
