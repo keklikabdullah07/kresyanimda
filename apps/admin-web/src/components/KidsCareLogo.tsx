@@ -35,8 +35,8 @@ export function KidsCareLogo({
 
   return (
     <div className={`flex items-center gap-3 shrink-0 ${className}`}>
-      {/* İkon / Amblem */}
-      <div className="w-10 h-10 rounded-xl bg-white/95 dark:bg-white/10 p-1 flex items-center justify-center shadow-xs border border-white/20 shrink-0">
+      {/* İkon / Amblem: Dolgun, net ve kutuyu tamamen dolduran boyutlandırma */}
+      <div className="w-11 h-11 rounded-xl bg-white shadow-xs border border-white/30 p-1 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
         <img
           src="/brand/kresyanimda-icon.png"
           alt="Kreş Yanımda"
