@@ -157,8 +157,8 @@ export function LoginPage(): JSX.Element {
           <div className="relative group">
             <div className="w-48 h-48 xl:w-52 xl:h-52 rounded-3xl bg-white dark:bg-[#131B2E] p-6 lg:p-7 border-2 border-[#DDD4C4] dark:border-slate-700 shadow-[0_6px_0_0_#D5CBB9,0_14px_30px_rgba(45,38,30,0.08)] dark:shadow-[0_6px_0_0_#1E293B,0_14px_30px_rgba(0,0,0,0.5)] flex items-center justify-center transition-all duration-200 group-hover:-translate-y-1">
               <img
-                src="/brand/kidscare-icon.png"
-                alt="KidsCare Logo"
+                src="/brand/k-icon-original.png"
+                alt="Kreş Yanımda"
                 className="w-full h-full object-contain filter drop-shadow-xs"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
@@ -171,13 +171,13 @@ export function LoginPage(): JSX.Element {
 
           <div className="space-y-3 max-w-lg">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 border border-teal-200/80 dark:border-teal-800/60 text-xs font-bold tracking-wide shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              
               <span>Yeni Nesil Okul Öncesi Yönetim Sistemi</span>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
               <span className="text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-                Kids<span className="text-[#115e59] dark:text-teal-400">Care</span>
+                Kreş <span className="text-[#115e59] dark:text-teal-400">Yanımda</span>
               </span>
               <span className="text-xs uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border border-amber-200/90 dark:border-amber-800/60 shadow-2xs">
                 Kreş Portalı
@@ -228,14 +228,14 @@ export function LoginPage(): JSX.Element {
           <div className="lg:hidden flex flex-col items-center justify-center text-center mb-5">
             <div className="w-16 h-16 rounded-2xl bg-white dark:bg-[#131B2E] p-3 border-2 border-[#DDD4C4] dark:border-slate-700 shadow-[0_4px_0_0_#D5CBB9] flex items-center justify-center mb-2.5">
               <img
-                src="/brand/kidscare-icon.png"
-                alt="KidsCare Logo"
+                src="/brand/k-icon-original.png"
+                alt="Kreş Yanımda"
                 className="w-full h-full object-contain filter drop-shadow-xs"
               />
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
-                Kids<span className="text-[#115e59] dark:text-teal-400">Care</span>
+                Kreş <span className="text-[#115e59] dark:text-teal-400">Yanımda</span>
               </span>
               <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200/80 dark:border-amber-800/60 shadow-2xs">
                 Kreş
@@ -262,7 +262,7 @@ export function LoginPage(): JSX.Element {
               <div className="bg-[#FCFAF7] dark:bg-slate-900/60 border border-[#DDD4C4] dark:border-slate-800 rounded-2xl p-3.5 space-y-2.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-bold flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                    
                     Hızlı Demo Girişi (Geliştirici):
                   </span>
                   <button
@@ -473,3 +473,4 @@ export function LoginPage(): JSX.Element {
     </div>
   );
 }
+
