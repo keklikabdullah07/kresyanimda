@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+﻿import type { JSX } from 'react';
 
 type KidsCareLogoProps = {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -9,8 +9,8 @@ type KidsCareLogoProps = {
 };
 
 /**
- * KidsCare Official Brand Logo Component
- * Uses the authentic KidsCare brand assets (K-heart emblem & typography)
+ * Kreş Yanımda Official Brand Logo Component
+ * Uses the authentic Kreş Yanımda brand assets (K-heart emblem & typography)
  */
 export function KidsCareLogo({
   size = 'md',
@@ -31,7 +31,7 @@ export function KidsCareLogo({
         <div className="px-2.5 py-1 rounded-xl bg-transparent dark:bg-[#FAF8F5] dark:border dark:border-amber-200/30 dark:shadow-xs transition-colors">
           <img
             src="/brand/kidscare-logo-horizontal.png"
-            alt="KidsCare"
+            alt="Kreş Yanımda"
             className={`${hSizes[size]} w-auto object-contain`}
           />
         </div>
@@ -51,7 +51,7 @@ export function KidsCareLogo({
         <div className="p-3 rounded-2xl bg-transparent dark:bg-[#FAF8F5] dark:border dark:border-amber-200/30 dark:shadow-xs transition-colors">
           <img
             src="/brand/kidscare-logo-full.png"
-            alt="KidsCare"
+            alt="Kreş Yanımda"
             className={`${fSizes[size]} w-auto object-contain`}
           />
         </div>
@@ -76,7 +76,7 @@ export function KidsCareLogo({
       >
         <img
           src="/brand/kidscare-icon.png"
-          alt="KidsCare Emblem"
+          alt="Kreş Yanımda Emblem"
           className="w-full h-full object-contain"
         />
       </div>
@@ -90,10 +90,7 @@ export function KidsCareLogo({
                 inverted ? 'text-white' : 'text-teal-950 dark:text-white'
               }`}
             >
-              Kids
-              <span className={inverted ? 'text-amber-300' : 'text-teal-600 dark:text-teal-400'}>
-                Care
-              </span>
+              Kreş<span className={inverted ? 'text-amber-300' : 'text-teal-600 dark:text-teal-400'}> Yanımda</span>
             </span>
             <span
               className={`text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full ${
@@ -117,3 +114,4 @@ export function KidsCareLogo({
     </div>
   );
 }
+
