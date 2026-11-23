@@ -423,7 +423,7 @@ export function Layout(): JSX.Element {
             {!collapsed ? (
               <NavLink
                 to="/"
-                className="flex items-center group focus:outline-hidden min-w-0"
+                className="flex items-center group focus:outline-hidden w-full"
                 title="Kreş Yanımda Ana Sayfa"
               >
                 <KidsCareLogo size="md" showText={true} inverted={true} />

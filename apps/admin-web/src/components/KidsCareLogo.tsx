@@ -15,7 +15,7 @@ export function KidsCareLogo({
   className = '',
   inverted = false,
 }: KidsCareLogoProps): JSX.Element {
-  // Sidebar collapsed (kapalı/daraltılmış) durumunda: Sadece tek başına kare K amblemi
+  // Sidebar collapsed (kapalı) durumunda
   if (variant === 'icon' || !showText) {
     return (
       <div className={`w-10 h-10 flex items-center justify-center p-1.5 rounded-xl bg-white shadow-xs shrink-0 ${className}`}>
@@ -28,10 +28,10 @@ export function KidsCareLogo({
     );
   }
 
-  // Açık Sidebar için: Beyaz kutuyu başlığın genişliğine yayan, logoyu içinde büyük ve ferah tutan net tasarım
+  // Açık Sidebar için: Beyaz kutuyu tüm genişliğe yayan ve logoyu kutunun tamamına oturtan yapı
   return (
-    <div className={`flex items-center w-full ${className}`}>
-      <div className="w-full h-12 bg-white px-3 py-1.5 rounded-xl shadow-xs flex items-center justify-center">
+    <div className={`flex items-center w-full min-w-0 ${className}`}>
+      <div className="w-full h-14 bg-white px-3 py-1 rounded-2xl shadow-sm border border-white/20 flex items-center justify-center">
         <img
           src="/brand/kresyanimda-banner.png"
           alt="Kreş Yanımda"
